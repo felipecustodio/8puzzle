@@ -5,15 +5,67 @@
 		[
 			[
 				"print",
-				"printQueue"
+				"printState"
+			],
+			[
+				"cop",
+				"copy_state"
+			],
+			[
+				"copy",
+				"copyState"
+			],
+			[
+				"destr",
+				"destroyState"
+			],
+			[
+				"destroy",
+				"destroyBoard"
+			],
+			[
+				"sta",
+				"states"
+			],
+			[
+				"remov",
+				"removeState"
+			],
+			[
+				"create",
+				"createState"
+			],
+			[
+				"check",
+				"checkCorners"
+			],
+			[
+				"zero",
+				"zero_j"
+			],
+			[
+				"cre",
+				"createState"
+			],
+			[
+				"pri",
+				"priority"
+			],
+			[
+				"PRIOR",
+				"PRIORITY_QUEUE"
+			],
+			[
+				"PRIO",
+				"PRIORITY_QUEUE"
+			],
+			[
+				"final",
+				"finalBoard"
 			],
 			[
 				"def",
 				"def	#ifndef … #define … #endif"
-			],
-			[
-				"sta",
-				"stack_size"
 			],
 			[
 				"aux",
@@ -107,7 +159,7 @@
 			"file": "src/main.c",
 			"settings":
 			{
-				"buffer_size": 12940,
+				"buffer_size": 14866,
 				"line_ending": "Unix"
 			}
 		}
@@ -119,21 +171,33 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 265.0,
-		"last_filter": "trimm",
+		"height": 81.0,
+		"last_filter": "block",
 		"selected_items":
 		[
 			[
-				"trimm",
-				"Trimmer: Remove blank spaces."
+				"block",
+				"Toggle Block Comment"
+			],
+			[
+				"BLOCK",
+				"Toggle Block Comment"
+			],
+			[
+				"markdown lig",
+				"Set Syntax: Markdown Light"
+			],
+			[
+				"markdown",
+				"Set Syntax: Markdown"
 			],
 			[
 				"install",
 				"Package Control: Install Package"
 			],
 			[
-				"block",
-				"Toggle Block Comment"
+				"preview",
+				"Markdown Preview: Preview in Browser"
 			],
 			[
 				"destroy",
@@ -231,16 +295,24 @@
 	],
 	"file_history":
 	[
-		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/main_backup.c",
-		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/includes/game.h",
-		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/Makefile",
-		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/includes/menu.h",
-		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/src/game.c",
-		"/home/crochi/Dropbox/codes/study/menu/menu.c",
-		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/src/main.c",
-		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/README.md",
-		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/includes/board.h",
 		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/LICENSE",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/README.md",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/TODO.md",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/src/priority.c",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/includes/priority.h",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/includes/menu.h",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/src/main.c",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/src/game.c",
+		"/home/crochi/Dropbox/codes/icc2/trabalho06/src/main.c",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/includes/heap.h",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/src/heap.c",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/src/queue.c",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/includes/queue.h",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/src/test.in",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/Makefile",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/includes/game.h",
+		"/home/crochi/Dropbox/codes/study/menu/menu.c",
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/includes/board.h",
 		"/home/crochi/Dropbox/codes/alg1/implementacoes/circular_list/src/main.c",
 		"/home/crochi/Dropbox/codes/alg1/projeto01-mini-google/src/minigoogle.c",
 		"/home/crochi/Dropbox/codes/alg1/implementacoes/README.md",
@@ -325,7 +397,7 @@
 	],
 	"find":
 	{
-		"height": 37.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -336,9 +408,27 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"createState(",
+			"new->movements = game->movements + 1;",
+			"hamming(",
+			"gameloop",
+			"hamming",
+			"printBoard",
+			"hamming",
+			"createState()",
+			"compareBoard",
+			"up",
+			"file",
+			"rank",
+			"file",
+			"count",
+			"ITEM",
+			"NODE",
+			"i",
+			"gameboard",
 			"intercala",
 			"ini",
 			"fim",
@@ -448,16 +538,7 @@
 			"atual",
 			"medalBoard.countries",
 			"list",
-			"medalBoard.total",
-			"total",
-			"Board.",
-			"temporary",
-			"medalBoard",
-			"readBoard",
-			"..",
-			"medalBoard.countries[i]",
-			"printCountry",
-			"\\n"
+			"medalBoard.total"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -485,71 +566,24 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12940,
+						"buffer_size": 14866,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12908,
-								12908
+								11771,
+								11771
 							]
 						],
 						"settings":
 						{
-							"c_time":
-							[
-								128,
-								3,
-								99,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								113,
-								0,
-								67,
-								10,
-								7,
-								223,
-								11,
-								4,
-								16,
-								37,
-								9,
-								0,
-								0,
-								0,
-								113,
-								1,
-								133,
-								113,
-								2,
-								82,
-								113,
-								3,
-								46
-							],
 							"syntax": "Packages/C++/C.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 12951.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

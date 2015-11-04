@@ -222,6 +222,41 @@ STATE *createState() {
 
 }
 
+BOARD* copy_board (BOARD* original) {
+    
+    BOARD* copy;
+    copy = (BOARD*)malloc(sizeof(BOARD));
+    createBoard(&copy);
+    int i, j;
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            copy->position[i][j] = original->position[i][j];
+        }
+    }
+
+    return copy;
+}
+
+STATE* copy_state (STATE* original) {
+   
+   	STATE* copy = createState();
+  
+    //copiando tabuleiro
+    copy->current = copy_board(original->current);
+    
+    //copiando inteiros
+    copy->movements = original->movements;
+    copy->priority = original->priority;
+    
+    //copiando estado anterior
+    if (original->previous != NULL)
+        copy->previous = copy_state(original);
+    else
+        copy->previous = NULL;
+    
+    return copy;
+}
+
 /*-------------------------------------------------------
 
 FUNÇÕES DE FILA DE PRIORIDADE
@@ -334,17 +369,6 @@ FUNÇÕES DE JOGO
 
 ---------------------------------------------------------*/
 
-STATE *copyState(STATE *state) {
-	
-	STATE *copy = (STATE*)malloc(sizeof(STATE));
-	*(copy->current) = *(state->current);
-	copy->previous = state->previous;
-	copy->movements = state->movements;
-	copy->priority = copy->priority;
-	return (copy);
-
-}
-
 POSITION *findZero(BOARD *board) {
 	int i, j;
 	// Encontrar a posição vazia
@@ -421,11 +445,13 @@ int possibleMovements(PRIORITY_QUEUE *queue, STATE *game) {
 
 	printf("\tPOSSIBLE MOVEMENTS\n");
 	int stateCounter = 0;
-	STATE* new = createState();
-	new = game;
-	STATE *backup = copyState(game); 	// armazena o estado passado como parâmetro para resetar após uma mudança
-	POSITION *zero; 					// coordenadas da posição vazia
-	POSITION aux;
+	printf("\tnew\n");
+	STATE *new = createState();
+	printf("\tmaking backup\n");
+	STATE *backup = copy_state(game);
+	//new = copy_state(game);
+	POSITION *zero;  // coordenadas da posição vazia
+	POSITION aux;	// posição auxiliar para swap
 
 	// Encontrar a posição vazia
 	printf("\tFind zero\n");
@@ -457,8 +483,9 @@ int possibleMovements(PRIORITY_QUEUE *queue, STATE *game) {
 	}
 
 	// Resetar tabuleiro
-	game = backup;
+	game = copy_state(backup);
 
+	zero = findZero(game->current);
 	// Puxar o valor de baixo 
 	printf("\tChecking down\n");
 	if(zero->down != NULL) {
@@ -484,8 +511,9 @@ int possibleMovements(PRIORITY_QUEUE *queue, STATE *game) {
 	}
 
 	// Resetar tabuleiro
-	game = backup;
+	game = copy_state(backup);
 
+	zero = findZero(game->current);
 	// Puxar o valor da esquerda 
 	printf("\tChecking left\n");
 	if(zero->left != NULL) {
@@ -510,8 +538,9 @@ int possibleMovements(PRIORITY_QUEUE *queue, STATE *game) {
 	}
 
 	// Resetar tabuleiro
-	game = backup;
+	game = copy_state(backup);
 
+	zero = findZero(game->current);
 	// Puxar o valor da direita 
 	printf("\tChecking right\n");
 	if(zero->right != NULL) {
@@ -536,8 +565,10 @@ int possibleMovements(PRIORITY_QUEUE *queue, STATE *game) {
 	}
 
 	// Resetar tabuleiro
-	game = backup;
-
+	game = copy_state(backup);
+	printState(game);
+	free(backup);
+	free(new);
 	return (stateCounter);
 
 }
@@ -556,12 +587,12 @@ void gameLoop(PRIORITY_QUEUE *queue) {
 	// Jogo começa com o tabuleiro inicial
 	STATE *game = createState();
 	game = queue->vector[0];
-	BOARD *board = game->current;
+	BOARD *board = copy_board(game->current);
 	
 	printf("\tLOOP\n");
 	// Loop do jogo: enquanto não chegar na configuração final
 	//while(!compareBoards(board,final)) {
-	if(!compareBoards(board,final)) {
+	while(!compareBoards(board,final)) {
 
 		printf("\tRemove and print state\n");
 		// 1) Remover e imprimir o tabuleiro do estado de menor prioridade
@@ -576,14 +607,14 @@ void gameLoop(PRIORITY_QUEUE *queue) {
 		states = possibleMovements(queue, game);
 
 		printf("\tReset\n");
-		board = game->current;
+		board = copy_board(game->current);
 
 	}
 
 	printf("\tFINISHED LOOP\n");
 	printState(game);
 	// Loop terminado: imprimir o total de movimentos e total de estados inseridos
-	printf("%d\n%d\n", game->movements, states);
+	printf("\tMOVIMENTOS: %d\n\tTOTAL DE ESTADOS INSERIDOS: %d\n", game->movements, states);
 
 }
 
@@ -614,6 +645,10 @@ int main(int argc, char const *argv[]) {
 
 	// Loop de jogo
 	gameLoop(queue);
+
+	printf("\tEXIT GAME LOOP\n");
+	printf("\tQUEUE\n");
+	printQueue(queue);
 
 	return 0;
 }
