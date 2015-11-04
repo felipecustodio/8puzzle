@@ -1,7 +1,5 @@
 /*-------------------------------------------------------
 
-
-
 ---------------------------------------------------------*/
 
 #include <stdio.h>
@@ -34,12 +32,21 @@ typedef struct state {
 
 ---------------------------------------------------------*/
 
-void createBoard(BOARD *gameboard) {
-
+void createBoard(BOARD *board) {
     int i;
-    gameboard->position = (int**)malloc(sizeof(int) * n);
+    board->position = (int**)malloc(sizeof(int) * n);
     for (i = 0; i < n; i++) {
-        gameboard->position[i] = (int*)malloc(sizeof(int) * n);
+        board->position[i] = (int*)malloc(sizeof(int) * n);
     }
+}
 
+void printBoard(BOARD *board) {
+    int i, j;
+    printf("\t");
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            printf("%d ", board->position[i][j]);
+        }
+        printf("\n\t");
+    }
 }

@@ -1,33 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "board.h"
 #include "priority.h"
 
-typedef struct state STATE;
+/*-------------------------------------------------------
 
-typedef struct board {
+FUNÇÕES DE FILA DE PRIORIDADE
 
-	int **position;
-
-} BOARD;
-
-typedef struct state {
-
-	BOARD *current;
-	STATE *previous;
-	int movements; // movimentos até chegar nesse estado
-	int priority;
-
-} STATE;
-
-// Implementação em arranjo
-
-typedef struct priority_queue PRIORITY_QUEUE;
-
-struct priority_queue {
-	STATE **vector;
-	int size;
-	int end;
-};
+---------------------------------------------------------*/
 
 PRIORITY_QUEUE* createQueue() {
 	PRIORITY_QUEUE *queue = (PRIORITY_QUEUE*)malloc(sizeof(PRIORITY_QUEUE));
@@ -63,5 +43,22 @@ void insert(PRIORITY_QUEUE *queue, STATE *new) {
 	queue->end++;
 	queue->vector = (STATE**)realloc(queue->vector, sizeof(STATE*) * queue->size + 1);
 	queue->vector[queue->end] = new;
+	queue->size++;
 	fix_up(queue);
 }
+
+STATE* removeState(PRIORITY_QUEUE *queue) {
+	STATE *removal;
+	removal = queue->vector[queue->end];
+	queue->end--;
+	fix_up(queue);
+	return removal;
+}
+
+void printQueue(PRIORITY_QUEUE *queue) {
+	int i;
+	printf("\t");
+	for (i = 0; i < queue->size; i++) {
+		printf("[ %d ] ", queue->vector[i]->priority);
+	}
+	printf("\n");

@@ -2,10 +2,10 @@
 CC = gcc
 
 #output path and filename
-BINARY = ./build/jogodo8
+BINARY = ./build/8puzzle
 
 #sources directory
-SRC = src/
+SRC = src/main.c 
 
 #includes directory
 INCLUDES = ./includes

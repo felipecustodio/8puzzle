@@ -102,8 +102,6 @@ FUNÇÕES DE TABULEIRO
 
 ---------------------------------------------------------*/
 
-// *** Modelo de comentário de função ***
-
 /*-------------------------------------------------------
 
 	createBoard
@@ -127,44 +125,42 @@ void createBoard(BOARD **board) {
 POSITION checkCorners(BOARD *board, POSITION position) {
 
 	int check; // coordenada de checagem
-  	
-  	// checar acima
-  	check = position.j - 1;
-  	if (check < 0) {
-    	// não pode ir pra cima
-    	position.up = NULL;
-  	} else {
-    	position.up = &(board->position[check][position.i]);
-  	}
-  	
-  	// checar abaixo
-  	check = position.j + 1;
-  	if (check > n-1) {
-    	// não pode ir para baixo
-    	position.down = NULL;
-  	} else {
-    	position.down = &(board->position[check][position.i]);
-  	}
+  // checar acima
+  check = position.j - 1;
+  if (check < 0) {
+    // não pode ir pra cima
+    position.up = NULL;
+  } else {
+    position.up = &(board->position[check][position.i]);
+  }
 
-  	// checar esquerda
-  	check = position.i - 1;
-  	if (check < 0) {
-  		// não pode ir para a esquerda
-    	position.left = NULL;
-  	} else {
-    	position.left = &(board->position[position.j][check]);
-  	}
+  // checar abaixo
+  check = position.j + 1;
+  if (check > n-1) {
+    // não pode ir para baixo
+    position.down = NULL;
+  } else {
+    position.down = &(board->position[check][position.i]);
+  }
 
-  	// checar direita
-  	check = position.i + 1;
-  	if (check > n-1) {
-    	// não pode ir para a direita
-    	position.right = NULL;
-  	} else {
-    	position.right = &(board->position[position.j][check]);
-  	}
+  // checar esquerda
+  check = position.i - 1;
+  if (check < 0) {
+    position.left = 0;
+  } else {
+    position.left = &(board->position[position.j][check]);
+  }
 
-  	return position;
+  // checar direita
+  check = position.i + 1;
+  if (check > n-1) {
+    // não pode ir para a direita
+    position.right = NULL;
+  } else {
+    position.right = &(board->position[position.j][check]);
+  }
+
+  return position;
 
 }
 
@@ -285,65 +281,9 @@ void printQueue(PRIORITY_QUEUE *queue) {
 
 /*-------------------------------------------------------
 
-FUNÇÕES DE MEMÓRIA
-
----------------------------------------------------------*/
-
-POSITION destroyPosition(POSITION position) {
-	position.value = 0;
-	position.i = 0;
-	position.j = 0;
-	position.up = NULL;
-	position.down = NULL;
-	position.left = NULL;
-	position.right = NULL;
-	return (position);
-}
-
-void destroyBoard(BOARD **board) {
-	int i, j;
-	for (i = 0; i < n; i++) {
-		for(j = 0; j < n; j++) {
-			(*board)->position[i][j] = destroyPosition((*board)->position[i][j]);
-		}
-		free((*board)->position[i]);
-	}
-	free((*board)->position);
-	free(*board);
-}
-
-void destroyState(STATE **state) {
-
-	destroyBoard(&(*state)->current);
-	free((*state)->previous);
-	(*state)->previous = NULL;
-
-}
-
-void destroyQueue(PRIORITY_QUEUE **queue) {
-	int i;
-	for (i = 0; i < (*queue)->size; i++) {
-		destroyState(&(*queue)->vector[i]);
-	}
-	free((*queue)->vector);
-}
-
-/*-------------------------------------------------------
-
 FUNÇÕES DE JOGO
 
 ---------------------------------------------------------*/
-
-STATE *copyState(STATE *state) {
-	
-	STATE *copy = (STATE*)malloc(sizeof(STATE));
-	*(copy->current) = *(state->current);
-	copy->previous = state->previous;
-	copy->movements = state->movements;
-	copy->priority = copy->priority;
-	return (copy);
-
-}
 
 POSITION *findZero(BOARD *board) {
 	int i, j;
@@ -376,8 +316,6 @@ void finalBoard(BOARD **final) {
 
 void printState(STATE *state) {
 
-	printf("\tGAME STATE\n");
-	printf("\tCurrent board:\n");
 	printBoard(state->current);
 	printf("\t[%d] movements\n", state->movements);
 	printf("\t[%d] priority\n", state->priority);
@@ -393,6 +331,7 @@ int hamming(STATE *game) {
 
 	for (i = 0; i < n; i++) {
 		for (j = 0; j < n; j++) {
+			//printf("\tCompare [%d] with [%d]\n", game->current->position[i][j].value, final->position[i][j].value);
 			if(game->current->position[i][j].value != final->position[i][j].value) {
 				result++; // peça em posição errada
 			}
@@ -421,10 +360,11 @@ int possibleMovements(PRIORITY_QUEUE *queue, STATE *game) {
 
 	printf("\tPOSSIBLE MOVEMENTS\n");
 	int stateCounter = 0;
+
 	STATE* new = createState();
 	new = game;
-	STATE *backup = copyState(game); 	// armazena o estado passado como parâmetro para resetar após uma mudança
-	POSITION *zero; 					// coordenadas da posição vazia
+	STATE old = *game; // armazena o estado passado como parâmetro para resetar após uma mudança
+	POSITION *zero; // coordenadas da posição vazia
 	POSITION aux;
 
 	// Encontrar a posição vazia
@@ -457,7 +397,8 @@ int possibleMovements(PRIORITY_QUEUE *queue, STATE *game) {
 	}
 
 	// Resetar tabuleiro
-	game = backup;
+	*game = old;
+	printState(new);
 
 	// Puxar o valor de baixo 
 	printf("\tChecking down\n");
@@ -466,14 +407,13 @@ int possibleMovements(PRIORITY_QUEUE *queue, STATE *game) {
 		aux = *zero->down;
 		zero->down->value = 0;
 		zero->value = aux.value;
-
+		
 		printf("\tHamming\n");
 		new->current = game->current;
 		new->priority = hamming(new);
 		new->movements = game->movements + 1;
 		printf("\tHamming = %d\n", new->priority);
 		new->previous = game;
-
 		// Inserir novo possível estado na fila 
 		// Apenas inserir se não for repetido ao estado anterior
 		if(!compareBoards(new->current, new->previous->current)) {
@@ -484,7 +424,8 @@ int possibleMovements(PRIORITY_QUEUE *queue, STATE *game) {
 	}
 
 	// Resetar tabuleiro
-	game = backup;
+	*game = old;
+	printState(new);
 
 	// Puxar o valor da esquerda 
 	printf("\tChecking left\n");
@@ -510,7 +451,8 @@ int possibleMovements(PRIORITY_QUEUE *queue, STATE *game) {
 	}
 
 	// Resetar tabuleiro
-	game = backup;
+	*game = old;
+	printState(new);
 
 	// Puxar o valor da direita 
 	printf("\tChecking right\n");
@@ -536,7 +478,8 @@ int possibleMovements(PRIORITY_QUEUE *queue, STATE *game) {
 	}
 
 	// Resetar tabuleiro
-	game = backup;
+	*game = old;
+	printState(new);
 
 	return (stateCounter);
 
@@ -606,7 +549,6 @@ int main(int argc, char const *argv[]) {
 	createBoard(&board);
 	readBoard(&board);
 	game->current = board;
-	game->priority = hamming(game);
 
 	// Fila inicial
 	PRIORITY_QUEUE *queue = createQueue();
@@ -614,6 +556,7 @@ int main(int argc, char const *argv[]) {
 
 	// Loop de jogo
 	gameLoop(queue);
+
 
 	return 0;
 }
