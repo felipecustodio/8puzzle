@@ -20,6 +20,7 @@
 ## Créditos
 
 	Felipe Scrochio Custódio
+	Guilherme Rodrigues Vicentin
 
 ## Licença
 
