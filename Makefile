@@ -5,7 +5,7 @@ CC = gcc
 BINARY = ./build/8puzzle
 
 #sources directory
-SRC = src/main.c 
+SRC = source/main.c source/game.c source/board.c source/queue.c
 
 #includes directory
 INCLUDES = ./includes

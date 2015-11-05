@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "board.h"
-#include "priority.h"
+#include "queue.h"
+#include "game.h"
 
 /*-------------------------------------------------------
 
@@ -62,3 +62,4 @@ void printQueue(PRIORITY_QUEUE *queue) {
 		printf("[ %d ] ", queue->vector[i]->priority);
 	}
 	printf("\n");
+}

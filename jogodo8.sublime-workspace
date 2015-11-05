@@ -156,10 +156,10 @@
 	"buffers":
 	[
 		{
-			"file": "src/main.c",
+			"file": "Makefile",
 			"settings":
 			{
-				"buffer_size": 14866,
+				"buffer_size": 362,
 				"line_ending": "Unix"
 			}
 		}
@@ -291,10 +291,17 @@
 	[
 		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8",
 		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/includes",
-		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/src"
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/source"
 	],
 	"file_history":
 	[
+		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/main_backup.c",
+		"/home/crochi/Dropbox/codes/alg1/jogodo8-gui/includes/game.h",
+		"/home/crochi/Dropbox/codes/alg1/jogodo8-gui/source/queue.c",
+		"/home/crochi/Dropbox/codes/alg1/jogodo8-gui/includes/queue.h",
+		"/home/crochi/Dropbox/codes/alg1/jogodo8-gui/includes/board.h",
+		"/home/crochi/Dropbox/codes/alg1/jogodo8-gui/source/game.c",
+		"/home/crochi/Dropbox/codes/alg1/jogodo8-gui/source/board.c",
 		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/LICENSE",
 		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/README.md",
 		"/home/crochi/Dropbox/codes/alg1/projeto02-jogodo8/TODO.md",
@@ -397,7 +404,7 @@
 	],
 	"find":
 	{
-		"height": 39.0
+		"height": 29.0
 	},
 	"find_in_files":
 	{
@@ -562,39 +569,43 @@
 			[
 				{
 					"buffer": 0,
-					"file": "src/main.c",
+					"file": "Makefile",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14866,
+						"buffer_size": 362,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11771,
-								11771
+								252,
+								252
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 12951.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				}
 			]
+		},
+		{
+			"sheets":
+			[
+			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 29.0
 	},
 	"input":
 	{
@@ -609,11 +620,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -639,7 +657,7 @@
 	"project": "jogodo8.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 54.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -653,12 +671,12 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{
@@ -669,7 +687,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
